@@ -18,15 +18,17 @@ export default function RootLayout({
   return (
     <html lang="bn">
       <body>
-        <Navbar
-          date={
-            <Suspense
-              fallback={<span className="mt-1 block text-xs text-gray-500" />}
-            >
-              <BanglaDate />
-            </Suspense>
-          }
-        />
+        <Suspense fallback={<div className="min-h-20" />}>
+          <Navbar
+            date={
+              <Suspense
+                fallback={<span className="mt-1 block text-xs text-gray-500" />}
+              >
+                <BanglaDate />
+              </Suspense>
+            }
+          />
+        </Suspense>
         <PriceTicker />
         {children}
       </body>

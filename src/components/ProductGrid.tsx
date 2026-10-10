@@ -11,7 +11,7 @@ export default function ProductGrid({
     <section id="সব-পণ্য" className="scroll-mt-40">
       <div className="mb-5">
         <h2 className="text-xl font-extrabold text-gray-900 sm:text-2xl">
-          সব পণ্যের বাজারদর
+          সব পণ্য
         </h2>
 
         <p className="mt-1 text-sm text-gray-500">
