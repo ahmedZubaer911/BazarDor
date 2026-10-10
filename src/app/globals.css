@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8faf5;
+  --background: #f4f8f1;
   --foreground: #183b2b;
   --primary: #176b45;
   --muted: #647568;
@@ -21,6 +21,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
 
 button,
 a,
