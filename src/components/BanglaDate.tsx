@@ -14,7 +14,7 @@ export default async function BanglaDate() {
   }).format(new Date());
 
   return (
-    <span className="mt-1 block text-xs text-black-500">
+    <span className="mt-1 block text-xs text-black!">
       {date}
     </span>
   );

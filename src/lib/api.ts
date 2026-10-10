@@ -1,5 +1,5 @@
 export const API_BASE_URL =
-  "https://api.api-store.workers.dev/api/bazardor";
+  "https://api.abcz.workers.dev/api/bazardor";
 
 export type Category = {
   id: string;

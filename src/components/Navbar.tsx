@@ -38,7 +38,7 @@ export default function Navbar({ date }: { date: ReactNode }) {
           </div>
 
           <div>
-            <span className="block text-xl font-extrabold text-black-600 sm:text-2xl mb-1.5">
+            <span className="mb-1.5 block text-xl font-extrabold text-gray-900 sm:text-2xl">
               বাজার দর
             </span>
             {date}
@@ -66,7 +66,7 @@ export default function Navbar({ date }: { date: ReactNode }) {
             <>
               <Link
                 href="/signin"
-                className="rounded-lg border border-green-700 px-4 py-2 text-sm font-semibold text-green-800 hover:bg-green-50"
+                className="rounded-lg border border-green-700 px-4 py-2 text-sm font-semibold text-green-800! hover:bg-green-50"
               >
                 সাইন ইন
               </Link>
@@ -101,10 +101,10 @@ export default function Navbar({ date }: { date: ReactNode }) {
                 key={category.id}
                 href={href}
                 aria-current={active ? "page" : undefined}
-                className={`shrink-0 border-b-2 px-4 py-2 text-sm font-semibold transition ${
+                className={`shrink-0 border-b-2 px-4 py-2 text-sm font-semibold transition-colors ${
                   active
-                    ? "border-green-700 bg-green-50 text-white"
-                    : "border-transparent text-gray-600 rounded-2xl hover:border-green-300 hover:text-green-800 hover:bg-green-400"
+                    ? "border-green-700 bg-green-500 rounded-2xl text-white!"
+                    : "border-transparent text-gray-600! rounded-2xl hover:border-green-300 hover:text-white! hover:bg-green-400"
                 }`}
               >
                 <span className="mr-2">{category.icon}</span>
@@ -129,10 +129,10 @@ export default function Navbar({ date }: { date: ReactNode }) {
                   key={category.id}
                   href={href}
                   onClick={() => setMenuOpen(false)}
-                  className={`rounded-lg px-3 py-3 text-sm font-medium ${
+                  className={`rounded-lg px-3 py-3 text-sm font-medium transition-colors ${
                     active
-                      ? "bg-green-100 text-white"
-                      : "bg-gray-50 text-gray-70 rounded-2xl hover:bg-green-300 hover:text-green-800"
+                      ? "bg-green-600 rounded-2xl text-white!"
+                      : "bg-gray-50 text-gray-700! rounded-2xl hover:bg-green-300 hover:text-white!"
                   }`}
                 >
                   <span className="mr-2">{category.icon}</span>
