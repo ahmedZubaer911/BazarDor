@@ -22,7 +22,7 @@ export default async function ProductDetailsPage({
   });
 
   if (!session) {
-    redirect("/signin");
+    redirect("/signin?reason=auth-required");
   }
   const { slug } = await params;
 
@@ -130,7 +130,7 @@ export default async function ProductDetailsPage({
             </div>
           </div>
 
-          <div className="border-t flex=1 p-2.5 justify-between items-center rounded-2xl border-green-100 pt-5 text-left md:border-l md:border-t-0 md:pl-8 md:pt-0 md:text-center">
+          <div className="border-t flex-1 p-2.5 justify-between items-center rounded-2xl border-green-100 pt-5 text-left md:border-l md:border-t-0 md:pl-8 md:pt-0 md:text-center">
             <p className="text-sm text-gray-500">আজকের দাম</p>
             <p className="mt-1 text-4xl font-extrabold text-green-900">
               {formatBanglaNumber(product.today)}

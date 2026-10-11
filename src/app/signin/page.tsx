@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, LoaderCircle } from "lucide-react";
@@ -11,6 +11,17 @@ import { authClient } from "@/lib/auth-client";
 
 export default function SignInPage() {
   const router = useRouter();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("reason") === "auth-required") {
+      router.replace("/signin", { scroll: false });
+      toast.error("এই পেজটি দেখতে আগে সাইন ইন করুন।", {
+        id: "auth-required",
+      });
+    }
+  }, [router]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

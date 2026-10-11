@@ -59,7 +59,7 @@ export default function Navbar({ date }: { date: ReactNode }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-green-100 bg-white">
+    <header className="sticky top-0 z-50 border-b border-green-100 bg-white">
       <div className="container-main flex min-h-22 items-center justify-between gap-4">
         <Link href="/" className="flex shrink-0 items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center bg-green-500 rounded-xl">
