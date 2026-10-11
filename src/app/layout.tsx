@@ -5,6 +5,7 @@ import PriceTicker from "@/components/PriceTicker";
 import BanglaDate from "@/components/BanglaDate";
 import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "বাজার দর | BazarDor",
@@ -42,6 +43,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <Footer/>
       </body>
     </html>
   );
