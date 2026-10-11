@@ -1,5 +1,5 @@
 export const API_BASE_URL =
-  "https://api.abcz.workers.dev/api/bazardor";
+  "https://openapi.programming-hero.com/api/bazardor";
 
 export type Category = {
   id: string;
@@ -59,7 +59,7 @@ export async function getProducts(): Promise<Product[]> {
 
 export function formatBanglaNumber(value: number): string {
   return new Intl.NumberFormat("bn-BD", {
-    maximumFractionDigits: 1,
+    maximumFractionDigits: 2,
   }).format(value);
 }
 

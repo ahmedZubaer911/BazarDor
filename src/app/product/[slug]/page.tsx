@@ -149,7 +149,7 @@ export default async function ProductDetailsPage({
             </p>
             <p className="mt-2 text-sm text-gray-500">
               {lowestMarket
-                ? `সবচেয়ে কম দামের বাজার: ${lowestMarket.market}`
+                ? `সবচেয়ে কম দামের বাজার`
                 : "বাজারের তথ্য নেই"}
             </p>
           </div>
@@ -161,7 +161,7 @@ export default async function ProductDetailsPage({
             </p>
             <p className="mt-2 text-sm text-gray-500">
               {highestMarket
-                ? `সবচেয়ে বেশি দামের বাজার: ${highestMarket.market}`
+                ? `সবচেয়ে বেশি দামের বাজার`
                 : "বাজারের তথ্য নেই"}
             </p>
           </div>
