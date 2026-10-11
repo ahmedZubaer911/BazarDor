@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import PriceTicker from "@/components/PriceTicker";
 import BanglaDate from "@/components/BanglaDate";
 import { Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "বাজার দর | BazarDor",
@@ -30,6 +31,16 @@ export default function RootLayout({
           />
         </Suspense>
         <PriceTicker />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              borderRadius: "12px",
+              fontSize: "14px",
+            },
+          }}
+        />
         {children}
       </body>
     </html>
