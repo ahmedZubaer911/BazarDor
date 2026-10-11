@@ -6,8 +6,6 @@ BazarDor is a responsive web application that helps users explore daily prices o
 
 ## 🌐 Live Demo
 
-**Live Link:** `ADD_YOUR_VERCEL_DEPLOYMENT_URL_HERE`
-
 **GitHub Repository:** [ahmedZubaer911/BazarDor](https://github.com/ahmedZubaer911/BazarDor)
 
 ## ✨ Key Features
