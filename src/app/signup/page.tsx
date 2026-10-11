@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type SyntheticEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, LoaderCircle } from "lucide-react";
@@ -19,7 +19,7 @@ export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const [socialLoading, setSocialLoading] = useState("");
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (name.trim().length < 2) {
@@ -106,7 +106,7 @@ export default function SignUpPage() {
                 autoComplete="name"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder="যেমন: আব্দুর রহিম"
+                placeholder="যেমন আব্দুর রহিম"
                 required
                 minLength={2}
                 maxLength={100}
@@ -225,7 +225,7 @@ export default function SignUpPage() {
             অ্যাকাউন্ট আছে?{" "}
             <Link
               href="/signin"
-              className="font-bold underline! text-blue-800! hover:underline"
+              className="font-bold underline text-blue-800 hover:underline"
             >
               সাইন ইন করুন
             </Link>

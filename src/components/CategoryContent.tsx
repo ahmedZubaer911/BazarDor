@@ -120,7 +120,7 @@ export default function CategoryContent({ slug }: { slug: string }) {
         </p>
         <Link
           href="/"
-          className="mt-6 inline-flex rounded-xl bg-green-600 px-5 py-3 font-semibold text-white! transition hover:bg-green-800"
+          className="mt-6 inline-flex rounded-xl bg-green-600 px-5 py-3 font-semibold text-white!c transition hover:bg-green-800"
         >
           হোম পেজে ফিরে যান
         </Link>

@@ -2,17 +2,35 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, UserRound } from "lucide-react";
+import {
+  Menu,
+  X,
+  UserRound,
+  ChevronDown,
+  ArrowLeft,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { getCategories, type Category } from "@/lib/api";
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 export default function Navbar({ date }: { date: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  const router = useRouter();
+  const { data: session, isPending } = authClient.useSession();
+  const loggedIn = !!session?.user;
+
+  const user = session?.user;
+  const userName = user?.name || "ব্যবহারকারী";
+  const userEmail = user?.email || "";
+  const userImage = user?.image;
 
   useEffect(() => {
     getCategories()
@@ -22,6 +40,24 @@ export default function Navbar({ date }: { date: ReactNode }) {
       });
   }, []);
 
+  async function handleSignOut() {
+    try {
+      const { error } = await authClient.signOut();
+
+      if (error) {
+        toast.error(error.message || "সাইন আউট করা যায়নি।");
+        return;
+      }
+
+      setMenuOpen(false);
+      toast.success("সফলভাবে সাইন আউট হয়েছে!");
+      router.push("/");
+      router.refresh();
+    } catch {
+      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    }
+  }
+
   return (
     <header className="sticky top-0 z-40 border-b border-green-100 bg-white">
       <div className="container-main flex min-h-22 items-center justify-between gap-4">
@@ -30,10 +66,10 @@ export default function Navbar({ date }: { date: ReactNode }) {
             <Image
               src="/logo-icon.png"
               alt="বাজার দর লোগো"
-              width={18}
-              height={28}
+              width={9}
+              height={9}
               priority
-              className="object-contain"
+              className="h-5 w-5 object-contain"
             />
           </div>
 
@@ -46,39 +82,114 @@ export default function Navbar({ date }: { date: ReactNode }) {
         </Link>
 
         <div className="hidden items-center gap-3 sm:flex">
-          {loggedIn ? (
-            <>
-              <Link
-                href="/profile"
-                className="flex items-center gap-2 rounded-lg border border-green-200 px-3 py-2 text-sm font-medium text-green-800"
-              >
-                <UserRound size={17} />
-                প্রোফাইল
-              </Link>
+          {isPending ? (
+            <div className="h-10 w-36 animate-pulse rounded-lg bg-gray-100" />
+          ) : loggedIn ? (
+            <div className="relative">
               <button
-                onClick={() => setLoggedIn(false)}
-                className="rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                type="button"
+                onClick={() => setProfileOpen((open) => !open)}
+                aria-expanded={profileOpen}
+                aria-haspopup="menu"
+                className="flex max-w-56 items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 transition hover:border-green-300 hover:bg-green-50"
               >
-                সাইন আউট
+                {userImage ? (
+                  <Image
+                    src={userImage}
+                    alt="প্রোফাইল ছবি"
+                    width={36}
+                    height={36}
+                    unoptimized
+                    className="h-9 w-9 shrink-0 rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-800">
+                    <UserRound size={20} />
+                  </span>
+                )}
+
+                <span className="max-w-32 truncate text-sm font-semibold text-gray-800">
+                  {userName}
+                </span>
+
+                <ChevronDown
+                  size={17}
+                  className={`shrink-0 transition-transform ${
+                    profileOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
-            </>
+
+              {profileOpen && (
+                <div
+                  role="menu"
+                  className="absolute right-0 top-full z-50 mt-2 w-72 pb-4 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl shadow-gray-900/15 ring-1 ring-black/5"
+                >
+                  <div className="border-b border-gray-100 px-4 py-4">
+                    <p className="truncate font-bold text-gray-900">
+                      {userName}
+                    </p>
+                    <p className="mt-1 truncate text-sm text-gray-500">
+                      {userEmail}
+                    </p>
+                  </div>
+
+                  <Link
+                    href="/profile"
+                    role="menuitem"
+                    onClick={() => setProfileOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-extrabold text-gray-900 transition hover:bg-green-50"
+                  >
+                    {userImage ? (
+                      <Image
+                        src={userImage}
+                        alt="প্রোফাইল ছবি"
+                        width={32}
+                        height={32}
+                        unoptimized
+                        className="h-8 w-8 shrink-0 rounded-full object-cover"
+                      />
+                    ) : (
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 text-green-800">
+                        <UserRound size={18} />
+                      </span>
+                    )}
+                    আমার প্রোফাইল
+                  </Link>
+
+                  <div className="border-t border-gray-100">
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={handleSignOut}
+                      className="flex w-full items-center gap-3 px-4 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50 hover:text-red-700"
+                    >
+                      <ArrowLeft size={19} />
+                      <span>সাইন আউট</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           ) : (
             <>
               <Link
                 href="/signin"
-                className="rounded-lg border border-green-700 px-4 py-2 text-sm font-semibold text-green-800! hover:bg-green-50"
+                className="rounded-lg border border-green-700 px-4 py-2 text-sm font-semibold text-green-800 hover:bg-green-50"
               >
                 সাইন ইন
               </Link>
+
               <Link
                 href="/signup"
-                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white! shadow-md hover:bg-green-700"
+                className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-700"
               >
                 সাইন আপ
               </Link>
             </>
           )}
         </div>
+
         <button
           type="button"
           aria-label={menuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}
@@ -153,10 +264,7 @@ export default function Navbar({ date }: { date: ReactNode }) {
                   প্রোফাইল
                 </Link>
                 <button
-                  onClick={() => {
-                    setLoggedIn(false);
-                    setMenuOpen(false);
-                  }}
+                  onClick={handleSignOut}
                   className="flex-1 rounded-lg bg-gray-100 px-3 py-2 text-sm"
                 >
                   সাইন আউট
