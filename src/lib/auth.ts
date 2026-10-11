@@ -1,10 +1,6 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
-import { setServers, getServers } from "node:dns";
-
-setServers(["1.1.1.1", "8.8.8.8"]);
-console.log("Auth DNS servers:", getServers());
 
 const mongoUri = process.env.MONGODB_URI;
 
@@ -12,10 +8,7 @@ if (!mongoUri) {
   throw new Error("MONGODB_URI is missing from .env.local");
 }
 
-const client = new MongoClient(mongoUri, {
-  serverSelectionTimeoutMS: 10000,
-  connectTimeoutMS: 10000,
-});
+const client = new MongoClient(mongoUri);
 const db = client.db("bazardor");
 
 export const auth = betterAuth({
@@ -24,5 +17,23 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: false,
+  },
+
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    },
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    },
+  },
+
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google"],
+    },
   },
 });

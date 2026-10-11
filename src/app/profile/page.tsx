@@ -13,16 +13,12 @@ export default function ProfilePage() {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState(() => user?.name || "");
   const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     if (!isPending && !user) {
       router.replace("/signin");
-    }
-
-    if (user) {
-      setName(user.name || "");
     }
   }, [isPending, user, router]);
 
@@ -125,7 +121,7 @@ export default function ProfilePage() {
           <button
             type="button"
             onClick={handleSignOut}
-            className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-lg px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 sm:self-center"
+            className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-lg border-2 px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-50 sm:self-center"
           >
             <LogOut size={18} />
             সাইন আউট

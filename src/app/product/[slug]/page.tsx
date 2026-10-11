@@ -1,7 +1,10 @@
 export const instant = false;
 
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+
 import {
   getProducts,
   formatBanglaNumber,
@@ -14,6 +17,13 @@ export default async function ProductDetailsPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/signin");
+  }
   const { slug } = await params;
 
   let products;
@@ -148,9 +158,7 @@ export default async function ProductDetailsPage({
               {formatPrice(minPrice)}
             </p>
             <p className="mt-2 text-sm text-gray-500">
-              {lowestMarket
-                ? `সবচেয়ে কম দামের বাজার`
-                : "বাজারের তথ্য নেই"}
+              {lowestMarket ? `সবচেয়ে কম দামের বাজার` : "বাজারের তথ্য নেই"}
             </p>
           </div>
 
@@ -160,9 +168,7 @@ export default async function ProductDetailsPage({
               {formatPrice(maxPrice)}
             </p>
             <p className="mt-2 text-sm text-gray-500">
-              {highestMarket
-                ? `সবচেয়ে বেশি দামের বাজার`
-                : "বাজারের তথ্য নেই"}
+              {highestMarket ? `সবচেয়ে বেশি দামের বাজার` : "বাজারের তথ্য নেই"}
             </p>
           </div>
 

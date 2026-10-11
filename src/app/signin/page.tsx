@@ -74,8 +74,8 @@ export default function SignInPage() {
     <main className="container-main flex min-h-[75vh] items-center justify-center py-10 sm:py-14">
       <div className="w-full max-w-xl">
         <section className="w-full rounded-2xl border border-green-100 bg-white p-5 shadow-sm sm:p-7">
-          <header className="mb-7 text-center">
-            <h1 className="pb-2.5 text-2xl font-extrabold text-gray-900 sm:text-3xl">
+          <header className="mb-7 block w-full text-center">
+            <h1 className="block w-full whitespace-normal pb-2.5 text-2xl font-extrabold leading-tight text-gray-900 sm:text-3xl">
               সাইন ইন
             </h1>
             <p className="mt-2 text-sm leading-6 text-gray-500">
